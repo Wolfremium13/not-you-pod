@@ -1,6 +1,7 @@
 ## Requirements
 
 - Node version >= 18.0.0
+- Copy `.env.example` to `.env` and fill in the values
 
 ## Getting Started
 
