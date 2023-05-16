@@ -1,5 +1,7 @@
+import { collection, getDocs } from "firebase/firestore/lite";
 import { signJwtAccessToken } from "@/lib/jwt";
 import * as bcrypt from "bcrypt";
+import { db } from "@/lib/firebase";
 
 interface RequestBody {
   username: string;
@@ -7,20 +9,10 @@ interface RequestBody {
 }
 export async function POST(request: Request) {
   const body: RequestBody = await request.json();
-
-  // TODO: Replace this with a real database call with firebase
-  const user: any = await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        id: 1,
-        username: "admin",
-        password: bcrypt.hashSync("admin", 10),
-        name: "Admin",
-        role: "admin",
-        email: "wolfremiuminformaticagmail.com",
-      });
-    }, 1000);
-  });
+  const users = collection(db, 'users');
+  const userDocs = await getDocs(users);
+  const user: any = userDocs.docs.map(doc => doc.data())[0];
+  console.log(user);
 
   if (user && (await bcrypt.compare(body.password, user.password))) {
     const { password, ...userWithoutPass } = user;
