@@ -1,7 +1,13 @@
 import { db } from "@/lib/firebase";
 import * as bcrypt from "bcrypt";
 import { randomUUID } from "crypto";
-import { addDoc, collection } from "firebase/firestore/lite";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore/lite";
 
 interface RequestBody {
   username: string;
@@ -12,6 +18,18 @@ interface RequestBody {
 
 export async function POST(request: Request) {
   const { username, name, email, password }: RequestBody = await request.json();
+  const usernameQuery = query(
+    collection(db, "users"),
+    where("username", "==", username)
+  );
+  const usernameDocs = await getDocs(usernameQuery);
+  if (!usernameDocs.empty) {
+    const body = {
+      error: "Username already taken",
+    };
+    return new Response(JSON.stringify(body), { status: 409 });
+  }
+
   const userUUID = randomUUID();
   const encryptedPassword = await bcrypt.hash(password, 10);
   await addDoc(collection(db, "users"), {

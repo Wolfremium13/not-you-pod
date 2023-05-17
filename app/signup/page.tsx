@@ -34,9 +34,10 @@ export default function SignUpPage() {
         router.push("/");
       } else {
         const data = await response.json();
-        setErrorMessage(data.error);
+        setErrorMessage(data.error || "An error occurred.");
       }
     } catch (error) {
+      console.error("An error occurred:", error);
       setErrorMessage("An error occurred. Please try again."); // Set a generic error message
     }
   };
