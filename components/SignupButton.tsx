@@ -2,14 +2,21 @@
 import { Button } from "@material-tailwind/react";
 import { useSession } from "next-auth/react";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const SignupButton = () => {
   const { data: session } = useSession();
+  const router = useRouter();
   if (session && session.user && session.user.role === "admin") {
     return <></>;
   }
   return (
-    <Button variant="gradient" size="sm" fullWidth>
+    <Button
+      onClick={() => router.push("/signup")}
+      variant="gradient"
+      size="sm"
+      fullWidth
+    >
       Sign Up
     </Button>
   );
