@@ -57,6 +57,7 @@ export default function SignUpPage() {
         >
           <div className="mb-4 flex flex-col gap-6">
             <Input
+              minLength={6}
               size="lg"
               label="Username"
               value={username}
@@ -64,6 +65,8 @@ export default function SignUpPage() {
               required={true}
             />
             <Input
+              type="text"
+              minLength={3}
               size="lg"
               label="Name"
               value={name}
@@ -71,6 +74,7 @@ export default function SignUpPage() {
               required={true}
             />
             <Input
+              type="email"
               size="lg"
               label="Email"
               value={email}
