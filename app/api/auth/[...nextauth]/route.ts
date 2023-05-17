@@ -4,10 +4,13 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
-      name: "Domain Credentials",
+      name: "domain Credentials",
       credentials: {
-        username: { label: "Username", type: "text" },
+        username: {
+          label: "Username",
+          type: "text",
+          placeholder: "a wonderfull name",
+        },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
@@ -40,7 +43,11 @@ const handler = NextAuth({
       session.user = token as any;
       return session;
     },
-  }
+  },
+  theme: {
+    colorScheme: "auto", // "auto" | "dark" | "light"
+    logo: "/next.svg", // Absolute URL to image
+  },
 });
 
 export { handler as GET, handler as POST };
