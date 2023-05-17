@@ -47,3 +47,11 @@ title: "a_title"
 description: "a_description"
 url: "a_url"
 ```
+
+## Learn More
+
+- [Material Tailwind UI](https://material-tailwind.com/)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Firebase](https://firebase.google.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Tailwind UI](https://tailwindui.com/)
