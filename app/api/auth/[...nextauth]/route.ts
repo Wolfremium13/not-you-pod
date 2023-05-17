@@ -1,17 +1,5 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { initFirestore, FirestoreAdapter } from "@next-auth/firebase-adapter";
-import { cert } from "firebase-admin/app";
-
-const firestore = initFirestore({
-  credential: cert({
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-    privateKey: process.env.FIREBASE_PRIVATE_KEY
-    ? process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/gm, "\n")
-    : undefined,
-  }),
-});
 
 const handler = NextAuth({
   providers: [
@@ -52,8 +40,7 @@ const handler = NextAuth({
       session.user = token as any;
       return session;
     },
-  },
-  adapter: FirestoreAdapter(firestore),
+  }
 });
 
 export { handler as GET, handler as POST };
