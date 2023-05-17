@@ -1,3 +1,7 @@
+# Not-you-pod
+
+This is a project for showing off how to work with auth in Nextjs13 and Firebase.
+
 ## Requirements
 
 - Node version >= 18.0.0
@@ -17,21 +21,29 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Firebase
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project uses Firebase for authentication and database. You can create a new project on [Firebase](https://firebase.google.com/) and fill in the values in `.env` file.
 
-## Learn More
+### Users collection schema
 
-To learn more about Next.js, take a look at the following resources:
+All fields are required and must be filled as string:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+email: "an_email"
+id: "uuid"
+name: "your_name"
+password :"$2b$10$ECvSuVcvZOwpHj1ToFTReO05wXhfJtzsbM3GXwYUc4q3Q9Ow6VdkO" (admin)
+role: "admin|user"
+username: "your_username"
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Podcasts collection schema
 
-## Deploy on Vercel
+All fields are required and must be filled as string:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+title: "a_title"
+description: "a_description"
+url: "a_url"
+```

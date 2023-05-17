@@ -4,9 +4,9 @@ import React from "react";
 
 const SigninButton = () => {
   const { data: session } = useSession();
-  console.log(session?.user);
 
-  if (session && session.user) {
+
+  if (session && session.user && session.user.role === "admin") {
     return (
       <div className="flex gap-4 ml-auto">
         <p className="text-sky-600">{session.user.name}</p>
@@ -16,6 +16,7 @@ const SigninButton = () => {
       </div>
     );
   }
+  console.log(session?.user);
   return (
     <button onClick={() => signIn()} className="text-green-600 ml-auto">
       Sign In
