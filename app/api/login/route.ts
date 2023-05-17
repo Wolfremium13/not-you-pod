@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore/lite";
+import { collection, getDocs, query, where } from "firebase/firestore/lite";
 import { signJwtAccessToken } from "@/lib/jwt";
 import * as bcrypt from "bcrypt";
 import { db } from "@/lib/firebase";
@@ -9,11 +9,9 @@ interface RequestBody {
 }
 export async function POST(request: Request) {
   const body: RequestBody = await request.json();
-  const users = collection(db, 'users');
-  const userDocs = await getDocs(users);
+  const q = query(collection(db, "users"), where("username", "==", body.username));
+  const userDocs = await getDocs(q);
   const user: any = userDocs.docs.map(doc => doc.data())[0];
-  console.log(user);
-
   if (user && (await bcrypt.compare(body.password, user.password))) {
     const { password, ...userWithoutPass } = user;
     const accessToken = signJwtAccessToken(userWithoutPass);
