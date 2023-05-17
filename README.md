@@ -5,7 +5,7 @@ This is a project for showing off how to work with auth in Nextjs13 and Firebase
 ## Requirements
 
 - Node version >= 18.0.0
-- Copy `.env.example` to `.env` and fill in the values
+- Copy `.env.template` to `.env` and fill in the values
 
 ## Getting Started
 
