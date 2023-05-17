@@ -1,19 +1,101 @@
-import Link from "next/link";
+"use client";
 import React from "react";
+import {
+  Navbar,
+  Collapse,
+  Typography,
+  IconButton,
+  List,
+  ListItem,
+} from "@material-tailwind/react";
+import {
+  UserCircleIcon,
+  CubeTransparentIcon,
+  Bars3Icon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import SigninButton from "./SigninButton";
+import SignupButton from "./SignupButton";
 
-const AppBar = () => {
+function NavList() {
   return (
-    <header className="flex gap-4 p-4 bg-gradient-to-b from-white to-gray-200 shadow">
-      <Link className="transition-colors hover:text-blue-500" href={"/"}>
-        Home Page
-      </Link>
-      <Link className="transition-colors hover:text-blue-500" href={"/admin"}>
-        Admin Page
-      </Link>
-      <SigninButton />
-    </header>
+    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
+      <Typography
+        as="a"
+        href="#"
+        variant="small"
+        color="blue-gray"
+        className="font-normal"
+      >
+        <ListItem className="flex items-center gap-2 py-2 pr-4">
+          <CubeTransparentIcon className="h-[18px] w-[18px]" />
+          Podcasts
+        </ListItem>
+      </Typography>
+      <Typography
+        as="a"
+        href="#"
+        variant="small"
+        color="blue-gray"
+        className="font-normal"
+      >
+        <ListItem className="flex items-center gap-2 py-2 pr-4">
+          <UserCircleIcon className="h-[18px] w-[18px]" />
+          Account
+        </ListItem>
+      </Typography>
+    </List>
   );
-};
+}
 
-export default AppBar;
+export default function AppBar() {
+  const [openNav, setOpenNav] = React.useState(false);
+
+  React.useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setOpenNav(false)
+    );
+  }, []);
+
+  return (
+    <Navbar className="mx-auto max-w-screen-xl px-4 py-2">
+      <div className="flex items-center justify-between text-blue-gray-900">
+        <Typography
+          as="a"
+          href="#"
+          variant="h6"
+          className="mr-4 cursor-pointer py-1.5 lg:ml-2"
+        >
+          Not you pod
+        </Typography>
+        <div className="hidden lg:block">
+          <NavList />
+        </div>
+        <div className="hidden gap-2 lg:flex">
+          <SigninButton />
+          <SignupButton />
+        </div>
+        <IconButton
+          variant="text"
+          color="blue-gray"
+          className="lg:hidden"
+          onClick={() => setOpenNav(!openNav)}
+        >
+          {openNav ? (
+            <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+          ) : (
+            <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+          )}
+        </IconButton>
+      </div>
+      <Collapse open={openNav}>
+        <NavList />
+        <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
+          <SigninButton />
+          <SignupButton />
+        </div>
+      </Collapse>
+    </Navbar>
+  );
+}
