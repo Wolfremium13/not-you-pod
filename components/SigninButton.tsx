@@ -19,7 +19,6 @@ const SigninButton = () => {
         </Button>
     );
   }
-  console.log(session?.user);
   return (
     <Button
       onClick={() => signIn()}
