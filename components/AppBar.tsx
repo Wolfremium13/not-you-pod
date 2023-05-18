@@ -16,8 +16,13 @@ import {
 } from "@heroicons/react/24/outline";
 import SigninButton from "./SigninButton";
 import SignupButton from "./SignupButton";
+import { useSession } from "next-auth/react";
 
-function NavList() {
+interface NavListProps {
+  isAdmin: boolean;
+}
+
+function NavList(props: NavListProps) {
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
       <Typography
@@ -32,24 +37,29 @@ function NavList() {
           Podcasts
         </ListItem>
       </Typography>
-      <Typography
-        as="a"
-        href="#"
-        variant="small"
-        color="blue-gray"
-        className="font-normal"
-      >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
-          <UserCircleIcon className="h-[18px] w-[18px]" />
-          Account
-        </ListItem>
-      </Typography>
+      {props.isAdmin && (
+        <Typography
+          as="a"
+          href="#"
+          variant="small"
+          color="blue-gray"
+          className="font-normal"
+        >
+          <ListItem className="flex items-center gap-2 py-2 pr-4">
+            <UserCircleIcon className="h-[18px] w-[18px]" />
+            Admin Panel
+          </ListItem>
+        </Typography>
+      )}
     </List>
   );
 }
 
 export default function AppBar() {
   const [openNav, setOpenNav] = React.useState(false);
+  const { data: session } = useSession();
+  const isAdmin =
+    (session && session.user && session.user.role == "admin") ?? false;
 
   React.useEffect(() => {
     window.addEventListener(
@@ -70,7 +80,7 @@ export default function AppBar() {
           Not you pod
         </Typography>
         <div className="hidden lg:block">
-          <NavList />
+          <NavList isAdmin={isAdmin} />
         </div>
         <div className="hidden gap-2 lg:flex">
           <SigninButton />
@@ -90,7 +100,7 @@ export default function AppBar() {
         </IconButton>
       </div>
       <Collapse open={openNav}>
-        <NavList />
+        <NavList isAdmin={isAdmin} />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
           <SigninButton />
           <SignupButton />
