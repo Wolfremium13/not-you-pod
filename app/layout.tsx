@@ -1,6 +1,7 @@
 import AppBar from "@/components/AppBar";
 import "./globals.css";
 import Providers from "@/components/Providers";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Not-You-Pod",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <AppBar />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>
