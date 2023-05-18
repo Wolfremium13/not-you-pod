@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 const SignupButton = () => {
   const { data: session } = useSession();
   const router = useRouter();
-  if (session && session.user && session.user.role === "admin") {
+  if (session && session.user) {
     return <></>;
   }
   return (

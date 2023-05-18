@@ -6,7 +6,7 @@ import React from "react";
 const SigninButton = () => {
   const { data: session } = useSession();
 
-  if (session && session.user && session.user.role === "admin") {
+  if (session && session.user) {
     return (
         <Button
           onClick={() => signOut()}
